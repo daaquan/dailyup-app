@@ -64,7 +64,7 @@ class _HabitListPageState extends State<HabitListPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'DailyUp',
+          loc.translate('appTitle'),
           style: GoogleFonts.fredoka(fontWeight: FontWeight.bold, fontSize: 24),
         ),
         centerTitle: true,

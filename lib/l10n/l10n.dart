@@ -15,6 +15,7 @@ class AppLocalizations {
 
   static final _localizedValues = <String, Map<String, String>>{
     'en': {
+      'appTitle': 'DailyUp',
       'morningStretch': 'Morning Stretch',
       'reading': 'Read for 30 minutes',
       'deepBreathing': 'Take 3 deep breaths',
@@ -24,6 +25,7 @@ class AppLocalizations {
       'add': 'Add',
     },
     'ja': {
+      'appTitle': 'DailyUp',
       'morningStretch': '朝のストレッチ',
       'reading': '30分読書',
       'deepBreathing': '深呼吸3回',

@@ -1,6 +1,6 @@
 # DailyUp App
 
-A cute habit-building Flutter app UI example.
+A cute habit-building Flutter UI built with Material 3.
 
 ## Getting Started
 
@@ -11,4 +11,12 @@ flutter pub get
 flutter run
 ```
 
-The app supports English and Japanese languages and lets you add or remove habits.
+## Features
+
+- Soft pastel colors based on Material 3
+- Google Fonts **Fredoka** for all text
+- Add new habits from the floating action button
+- Swipe a habit card to delete it
+- Supports English and Japanese languages
+- State is kept only in memory (no persistence yet)
+
