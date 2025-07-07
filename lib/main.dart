@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'l10n/l10n.dart';
 import 'screens/home.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load();
+
+  await FirebaseMessaging.instance.requestPermission();
+  await FirebaseMessaging.instance.getToken().then((token) {
+    debugPrint('FCM Token: $token');
+  });
+
   runApp(const DailyUpApp());
 }
 

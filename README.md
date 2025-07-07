@@ -1,6 +1,7 @@
 # DailyUp App
+[![CI](https://github.com/yourorg/dailyup-app/actions/workflows/flutter.yml/badge.svg)](https://github.com/yourorg/dailyup-app/actions/workflows/flutter.yml)
 
-A cute habit-building Flutter UI built with Material 3.
+A skeleton mobile app demonstrating consuming paginated topics from a backend.
 
 ## Getting Started
 
@@ -10,6 +11,23 @@ Ensure you have Flutter installed. Then run:
 flutter pub get
 flutter run
 ```
+
+Create a `.env` file:
+
+```
+API_URL=https://example.com
+FCM_KEY=<firebase-key>
+```
+
+### Testing
+
+```
+flutter test
+```
+
+### CI
+
+GitHub Actions runs tests and builds on pull requests.
 
 ## Features
 

@@ -23,13 +23,13 @@ class TopicDetailPage extends StatelessWidget {
             const SizedBox(height: 16),
             InkWell(
               onTap: () async {
-                final uri = Uri.parse(topic.link);
+                final uri = Uri.parse(topic.url);
                 if (await canLaunchUrl(uri)) {
-                  await launchUrl(uri);
+                  await launchUrl(uri, mode: LaunchMode.externalApplication);
                 }
               },
               child: Text(
-                topic.link,
+                topic.url,
                 style: const TextStyle(color: Colors.blue),
               ),
             ),
