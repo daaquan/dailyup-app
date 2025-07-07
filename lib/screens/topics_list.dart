@@ -3,12 +3,11 @@ import 'package:provider/provider.dart';
 
 import '../providers/topics_provider.dart';
 import '../models/topic.dart';
+import '../widgets/topic_tile.dart';
 import 'topic_detail.dart';
 
 class TopicsListPage extends StatefulWidget {
-  const TopicsListPage({super.key, required this.category});
-
-  final String category;
+  const TopicsListPage({super.key});
 
   @override
   State<TopicsListPage> createState() => _TopicsListPageState();
@@ -23,9 +22,8 @@ class _TopicsListPageState extends State<TopicsListPage> {
     _controller = ScrollController()
       ..addListener(() {
         if (_controller.position.pixels >=
-                _controller.position.maxScrollExtent - 200) {
-          Provider.of<TopicsProvider>(context, listen: false)
-              .loadMore(category: widget.category);
+            _controller.position.maxScrollExtent - 200) {
+          Provider.of<TopicsProvider>(context, listen: false).fetchMore();
         }
       });
   }
@@ -39,13 +37,13 @@ class _TopicsListPageState extends State<TopicsListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Topics: ${widget.category}')),
+      appBar: AppBar(title: const Text('Topics')),
       body: Consumer<TopicsProvider>(
         builder: (context, provider, _) {
-          if (provider.isLoading && provider.topics.isEmpty) {
+          if (provider.loading && provider.items.isEmpty) {
             return const Center(child: CircularProgressIndicator());
           }
-          if (provider.hasError && provider.topics.isEmpty) {
+          if (provider.hasError && provider.items.isEmpty) {
             return Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -53,7 +51,7 @@ class _TopicsListPageState extends State<TopicsListPage> {
                   const Text('Failed to load'),
                   const SizedBox(height: 8),
                   ElevatedButton(
-                    onPressed: () => provider.fetch(category: widget.category),
+                    onPressed: provider.fetchFirstPage,
                     child: const Text('Retry'),
                   )
                 ],
@@ -61,21 +59,20 @@ class _TopicsListPageState extends State<TopicsListPage> {
             );
           }
           return RefreshIndicator(
-            onRefresh: () => provider.fetch(category: widget.category),
+            onRefresh: provider.fetchFirstPage,
             child: ListView.builder(
               controller: _controller,
-              itemCount: provider.topics.length + (provider.isLoading ? 1 : 0),
+              itemCount: provider.items.length + (provider.loading ? 1 : 0),
               itemBuilder: (context, index) {
-                if (index == provider.topics.length) {
+                if (index == provider.items.length) {
                   return const Padding(
                     padding: EdgeInsets.all(16.0),
                     child: Center(child: CircularProgressIndicator()),
                   );
                 }
-                final topic = provider.topics[index];
-                return ListTile(
-                  title: Text(topic.title),
-                  subtitle: Text(topic.publishedAt.toLocal().toString()),
+                final topic = provider.items[index];
+                return TopicTile(
+                  topic: topic,
                   onTap: () {
                     Navigator.push(
                       context,

@@ -1,14 +1,16 @@
 class Topic {
-  Topic({required this.title, required this.link, required this.publishedAt});
+  Topic({required this.id, required this.title, required this.url, required this.publishedAt});
 
+  final int id;
   final String title;
-  final String link;
+  final String url;
   final DateTime publishedAt;
 
   factory Topic.fromJson(Map<String, dynamic> json) {
     return Topic(
+      id: json['id'] as int? ?? 0,
       title: json['title'] as String? ?? '',
-      link: json['link'] as String? ?? '',
+      url: json['url'] as String? ?? '',
       publishedAt: DateTime.tryParse(json['published_at']?.toString() ?? '') ?? DateTime.now(),
     );
   }
